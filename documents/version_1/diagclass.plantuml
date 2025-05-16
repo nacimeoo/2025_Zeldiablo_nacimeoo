@@ -1,0 +1,52 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+class ArkanoidDessin {
+  + ArkanoidDessin(): 
+  + dessinerJeu(Jeu, Canvas): void
+}
+class ArkanoidJeu {
+  + ArkanoidJeu(): 
+  - raquette: Raquette
+  - balle: Balle
+  + etreFini(): boolean
+  + update(double, Clavier): void
+  + init(): void
+   balle: Balle
+   raquette: Raquette
+}
+class Balle {
+  + Balle(int, int): 
+  + evoluer(double): void
+  + collision(Raquette): void
+   py: double
+   px: double
+}
+class MainArkanoidLent {
+  + MainArkanoidLent(): 
+  + main(String[]): void
+}
+class MainArkanoidRapide {
+  + MainArkanoidRapide(): 
+  + main(String[]): void
+}
+class Raquette {
+  + Raquette(double, double): 
+  + allerGauche(int, double): void
+  + allerDroite(int, double): void
+   py: double
+   px: double
+}
+
+ArkanoidJeu         -[#595959,dashed]->  Balle              : "«create»"
+ArkanoidJeu        "1" *-[#595959,plain]-> "balle\n1" Balle              
+ArkanoidJeu         -[#595959,dashed]->  Raquette           : "«create»"
+ArkanoidJeu        "1" *-[#595959,plain]-> "raquette\n1" Raquette           
+MainArkanoidLent    -[#595959,dashed]->  ArkanoidDessin     : "«create»"
+MainArkanoidLent    -[#595959,dashed]->  ArkanoidJeu        : "«create»"
+MainArkanoidRapide  -[#595959,dashed]->  ArkanoidDessin     : "«create»"
+MainArkanoidRapide  -[#595959,dashed]->  ArkanoidJeu        : "«create»"
+@enduml
